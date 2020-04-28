@@ -45,3 +45,4 @@ jspm_packages
 .env
 .idea
 yarn.lock
+.package-lock.json
