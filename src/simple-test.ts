@@ -2,24 +2,24 @@ const AsyncManager = require('./index');
 
 const asyncManager = new AsyncManager();
 var a = asyncManager
-.until(function(count, done) {
+.until(function(count: number, done: any) {
     // done('success');
     done.again();
 }, 2)
-.then(function(message) {
+.then(function(message: any) {
     console.log('t1', message);
     return 1;
 })
-.then(function(message) {
+.then(function(message: any) {
     console.log('t2', message);
     throw new Error('t2 error')
 })
-.catch(function(err) {
-    console.log('fail', err)
+.catch(function(err: any) {
+    console.log('fail', err.message)
 })
 .until(function() {
     console.log('until');
     throw new Error('test fail')
-}).catch(function(err) {
+}).catch(function(err: any) {
     console.log('err message', err.message)
 })
