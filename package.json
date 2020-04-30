@@ -8,16 +8,29 @@
   },
   "scripts": {
     "test": "ts-node --files ./src/simple-test.ts",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -r 0"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -r 0",
+    "init": "karma start",
+    "tp": "ts-node --files ./test/processTesting.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@types/mocha": "^7.0.2",
     "@types/node": "^13.13.4",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "cz-conventional-changelog": "^3.1.0",
     "husky": "^4.2.5",
+    "karma": "^5.0.3",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^2.0.2",
+    "karma-mocha": "^2.0.1",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-typescript": "^5.0.2",
+    "mocha": "^7.1.2",
     "ts-node": "^8.9.1",
     "typescript": "^3.8.3"
   },
