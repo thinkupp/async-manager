@@ -54,7 +54,7 @@ export class AsyncManager {
         queue.add({
             type,
             call: (...cbArgs: any[]) => {
-                const ret = isMainFunction ? apiManager[type].apply(Ø, [callback, ...args]) : callback.apply(Ø, cbArgs);
+                const ret = isMainFunction ? apiManager[type](callback, ...args) : callback.apply(Ø, cbArgs);
                 this.status = newStatus;
                 return ret;
             }
