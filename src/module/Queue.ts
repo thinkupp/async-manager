@@ -50,9 +50,8 @@ export class Queue {
                 // 如果已有主函数则推入下个tick
                 if (last.main) {
                     // 链中增加一帧并改变last的指向
-                    last.next = this.last = {
-                        main: call
-                    }
+                    last.next = this.last = JSON.parse(INIT_HEAD);
+                    last.main = call;
                     return;
                 }
     
