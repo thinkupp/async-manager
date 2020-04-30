@@ -1,7 +1,8 @@
 import { AsyncManager } from './index';
 
 const asyncManager = new AsyncManager();
-var a = asyncManager
+
+asyncManager
 .until(function(count: number, done: any) {
     // done('success');
     done.again();

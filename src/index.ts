@@ -41,7 +41,7 @@ export class AsyncManager {
 
     private pushTask(type: string, callback: Function, ...args: any[]) {
         // 暂时不支持函数以外的值传入
-        if (typeof callback !== 'function') return;
+        if (typeof callback !== 'function') return this;
 
         const { queue, apiManager } = this;
 
