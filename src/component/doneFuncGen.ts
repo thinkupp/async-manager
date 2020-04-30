@@ -25,6 +25,7 @@ export const doneFunctionGenerator = function(queue: Queue, type: string) {
 
         function callBroker(callbackType: string, data: any) {
             if (disabled) return;
+            disabled = true;
             done.break = done.again = loop;
             queue.callCallback(callbackType, data);
         }
