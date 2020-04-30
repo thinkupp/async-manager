@@ -15,7 +15,7 @@ export interface AddParam {
 export declare class Queue {
     isMainFunction(type: string): boolean;
     isSpecialFunction(type: string): boolean;
-    callCallback(type: string, data?: any): boolean;
+    callCallback(type: string, data?: any): void;
     callMainFunction(): void;
     add(param: AddParam): void;
 }
