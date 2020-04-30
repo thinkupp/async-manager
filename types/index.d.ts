@@ -1,5 +1,5 @@
 export {
-    QueueInterface,
+    Queue,
     AddParam,
     TickPart
 } from './queue'

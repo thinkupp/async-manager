@@ -15,7 +15,7 @@ const INIT_HEAD: string = JSON.stringify({
     main: void 0,
 })
 
-export default class Queue {
+export class Queue {
     private head: TickPart;
     private last: TickPart;
     private item: TickPart;
@@ -74,6 +74,7 @@ export default class Queue {
      * @param type 回调函数类型（then or catch）
      * @param data 给函数的传参
      */
+    // TODO: 拆解成callSuccess & callError
     public callCallback(type: string, data: any) {
         const item = this.item;
         const that = this;
@@ -113,7 +114,7 @@ export default class Queue {
                 that.item = item.next;
             } else {
                 // 如果当前序列不存在则指向head
-                that.item = that.last = JSON.parse(that.initHead)
+                that.item = that.last = JSON.parse(INIT_HEAD)
             }
             // TODO: 执行下一个主函数
         }
