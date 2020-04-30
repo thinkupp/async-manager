@@ -6,7 +6,7 @@ function createCallWrap(fn: Function, max: number, doneGetter: Function) : Funct
 
     // 如果max为0或不存在则不需要每次对count校验
     if (!max) return function callUntilFunction() {
-        fn(count, doneGetter());
+        fn(count, doneGetter(callUntilFunction));
     }
 
     // max大于0时
@@ -16,7 +16,7 @@ function createCallWrap(fn: Function, max: number, doneGetter: Function) : Funct
             throw new Error('retry max');
         }
 
-        fn(count, doneGetter());
+        fn(count, doneGetter(callUntilFunction));
     }
 }
 

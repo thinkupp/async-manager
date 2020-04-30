@@ -5,6 +5,7 @@ const asyncManager = new AsyncManager();
 asyncManager
 .until(function(count: number, done: any) {
     // done('success');
+    console.log(count)
     done.again();
 }, 2)
 .then(function(message: any) {

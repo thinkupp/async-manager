@@ -3,11 +3,12 @@ import { loop } from '../utils/const';
 
 /**
  * @param queue 调度链
- * @param type 主函数/回调函数/...any
+ * @param type 主函数/回调函数/any 名称
+ * @param fn 主函数执行体
  */
-export const doneFunctionGenerator = function(queue: Queue, type: string) {
+export const doneFunctionGenerator = function(queue: Queue, type: string,) {
     // doneGetter
-    return function get() {
+    return function get(fn: Function) {
         let disabled: boolean = false;
 
         function done (data: any) {
@@ -18,7 +19,7 @@ export const doneFunctionGenerator = function(queue: Queue, type: string) {
             callBroker('catch', err);
         }
     
-        done.again = queue.callMainFunction;
+        done.again = fn;
 
         // TODO type
         // 在某些情况下done会有一些扩展函数，比如retry等
