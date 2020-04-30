@@ -1,4 +1,4 @@
-const AsyncManager = require('./index');
+const AsyncManager = require('./index.ts');
 
 const asyncManager = new AsyncManager();
 var a = asyncManager

@@ -2,7 +2,7 @@ import { Queue } from '../../types';
 import { until } from '../component/until';
 import { Ø } from '../utils/const'
 
-export default class ManagerApi {
+export class ManagerApi {
     private context: any;
     private queue: Queue;
 
