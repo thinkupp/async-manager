@@ -1,3 +1,20 @@
+/** 
+ * 异步流程管理、调度
+ * @description
+ *  - instance.until
+ *      - 如果设置了最大的尝试次数，程序会自动处理执行次数上限（执行错误钩子<catch>）
+ *      - 开发者无需在代码内部再关注执行次数
+ *  - instance.then
+ *      - 主函数执行成功后执行
+ *      - 如果.then后面跟的还是.then，将会按照Promise的流程一直继续下去
+ *  - instance.catch
+ *      - 主流程发生错误或函数发生错误时执行
+ *      - 这里和Promise的流程不同的地方是，一个主函数对应着一个catch，下个主函数的catch不会触发上个主函数的error
+ * @todos
+ *  - instance.registFunction
+ *      - 注册一个函数，使其可以在主函数与回调函数中通过this.fns.xxx调用
+ */
+
 import { Queue, ManagerApi } from './module/index';
 import { Ø } from './utils/const'
 
