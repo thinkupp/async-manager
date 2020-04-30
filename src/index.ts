@@ -18,8 +18,8 @@ export class AsyncManager {
         return this.pushTask('catch', callback);
     }
 
-    public until(callback: Function) {
-        return this.pushTask('until', callback);
+    public until(callback: Function, max?: number) {
+        return this.pushTask('until', callback, max);
     }
 
     private pushTask(type: string, callback: Function, ...args: any[]) {
