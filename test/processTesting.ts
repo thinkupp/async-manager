@@ -133,6 +133,7 @@ function tUntil() {
         done.break(count);
         done.again();
         done('nothing');
+
         if (count > 1) {
             logError('until', '[8]函数执行多次');
         }
@@ -168,6 +169,7 @@ function tUntil() {
     let timer2: any;
     asyncManager.until(function(done: any) {
         done();
+
         timer2 = setTimeout(function() {
             logError('until', '[10]没有触发回调！')
         }, 0);
@@ -198,6 +200,52 @@ function tUntil() {
         }
     }).catch(function(err: any) {
         logError('until', '[11]不该执行这里！' + err.message)
+    })
+
+    // [12]传入多个then函数
+    // 期望：执行所有的then函数
+    let n = 0;
+    asyncManager.until(function(done: any) {
+        done();
+    });
+    for(let i = 0; i < 20; i++) {
+        asyncManager.then(function() {
+            n++;
+        })
+    }
+
+    asyncManager.then(function() {
+        if (n === 20) {
+            logSuccess('until', '[12]成功')
+        } else {
+            logError('until', '[12]执行次数不对！' + n);
+        }
+    }).catch(function(err: any) {
+        logError('until', '[12]不该执行这里！' + err.message)
+    })
+
+    // [13] 传入多个then函数，在过程中抛出错误，传入多个catch
+    // 期望：不会执行剩下的then函数以及只有最后一个catch执行
+    let n1 = 0;
+    for(let i = 0; i < 10; i++) {
+        asyncManager.then(function() {
+            n1++;
+            if (i > 5) {
+                throw new Error('ERROR')
+            }
+        })
+
+        asyncManager.catch(function(err: any) {
+            logError('until', '[13]错误：不该执行这里！' + err.message)
+        })
+    }
+
+    asyncManager.catch(function(err: any) {
+        if (err.message === 'ERROR') {
+            logSuccess('until', '[13]成功')
+        } else {
+            logError('until', '[13]错误信息异常：' + err.message);
+        }
     })
 }
 
