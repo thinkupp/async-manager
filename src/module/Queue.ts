@@ -1,14 +1,14 @@
 import { AddParam, TickPart } from '../../types/index'
 
 const MAIN_FUNCTION_METHODS = ['until'];
-const SPECIAL_FUNCTION_METHODS = ['success'];
+const SPECIAL_FUNCTION_METHODS = ['then'];
 
 const INIT_HEAD: string = JSON.stringify({
     pref: null,
     // 下个tick
     next: null,
     // 成功的回调可以有一组
-    success:[],
+    then:[],
     // 失败的回调只能有一个且只第一个生效
     catch: void 0,
     // 主函数

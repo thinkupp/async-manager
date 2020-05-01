@@ -28,7 +28,7 @@ export class AsyncManager {
     }
 
     public then(callback: Function) {
-        return this.pushTask('success', callback);
+        return this.pushTask('then', callback);
     }
 
     public catch(callback: Function) {
