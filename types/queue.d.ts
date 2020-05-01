@@ -1,8 +1,10 @@
 export interface TickPart {
+    prev?: TickPart;
     next?: TickPart;
     then?: Array<Function>;
     catch?: Function;
     main: Function;
+    type: string;
 }
 
 export interface AddParam {

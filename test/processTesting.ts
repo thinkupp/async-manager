@@ -24,11 +24,11 @@ function tUntil() {
     let uCount: number = 0;
     asyncManager.until(function(count: number, done: any) {
         uCount = count;
-
+        done.again();
     }, 5).then(function() {
         logError('until', '[2]不该执行这里！')
     }).catch(function() {
-        if (uCount === 5) {
+        if (uCount !== 5) {
             logError('until', '[2]执行次数错误！')
         } else {
             console.log('until success: [2] 成功自动终止until')

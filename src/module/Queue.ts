@@ -4,6 +4,7 @@ const MAIN_FUNCTION_METHODS = ['until'];
 const SPECIAL_FUNCTION_METHODS = ['success'];
 
 const INIT_HEAD: string = JSON.stringify({
+    pref: null,
     // 下个tick
     next: null,
     // 成功的回调可以有一组
@@ -13,6 +14,8 @@ const INIT_HEAD: string = JSON.stringify({
     // 主函数
     // 一个主函数在序列中就是一帧
     main: void 0,
+    // 主函数名称
+    type: ''
 })
 
 export class Queue {
@@ -50,11 +53,15 @@ export class Queue {
                 // 如果已有主函数则推入下个tick
                 if (last.main) {
                     // 链中增加一帧并改变last的指向
-                    last.next = this.last = JSON.parse(INIT_HEAD);
-                    last.main = call;
+                    last.next = this.last = Object.assign(JSON.parse(INIT_HEAD), {
+                        main: call,
+                        type,
+                        prev: last
+                    });
                     return;
                 }
     
+                last.type = type;
                 type = 'main';
             }
     
@@ -113,9 +120,13 @@ export class Queue {
                 that.item = item.next;
             } else {
                 // 如果当前序列不存在则指向head
-                that.item = that.last = JSON.parse(INIT_HEAD)
+                that.item = that.last = JSON.parse(INIT_HEAD);
+                that.item.prev = item;
             }
-            // TODO: 执行下一个主函数
+            // 执行下一个主函数
+            if (that.item.main) {
+                that.callMainFunction();
+            }
         }
     }
 }
