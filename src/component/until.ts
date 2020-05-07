@@ -23,11 +23,11 @@ function createCallWrap(fn: Function, max: number, doneGetter: Function) : Funct
 /**
  * 执行一个函数，成功或失败到上限之前将重复执行
  * @param callback until执行器
- * @param emitter 事件发生器
+ * @param processEmitter 事件发生器
  * @param max 最大错误次数
  */
-export function until(callback: Function, emitter: Function, max: number) {
-    const doneGetter = doneFunctionGenerator(emitter, 'until');
+export function until(callback: Function, processEmitter: Function, max: number) {
+    const doneGetter = doneFunctionGenerator(processEmitter, 'until');
 
     const callUntilFunction = createCallWrap(callback, max, doneGetter);
 
@@ -38,7 +38,7 @@ export function until(callback: Function, emitter: Function, max: number) {
         try {
             callUntilFunction();
         } catch (err) {
-            emitter('error', err);
+            processEmitter('error', err);
         }
     }
 }

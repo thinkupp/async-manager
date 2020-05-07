@@ -1,12 +1,14 @@
 import { loop } from '../utils/const';
 
 /**
- * @param queue 调度链
+ * @param processEmitter 事件发生器
  * @param type 主函数/回调函数/any 名称
- * @param fn 主函数执行体
  */
-export const doneFunctionGenerator = function(emitter: Function, type: string) {
-    // doneGetter
+export const doneFunctionGenerator = function(processEmitter: Function, type: string) {
+    /**
+     * doneGetter
+     * @param fn 主函数执行体
+     */
     return function get(fn: Function) {
         let disabled: boolean = false;
 
@@ -27,7 +29,7 @@ export const doneFunctionGenerator = function(emitter: Function, type: string) {
             if (disabled) return;
             disabled = true;
             done.break = done.again = loop;
-            emitter(type, data);
+            processEmitter(type, data);
         }
 
         return done;

@@ -25,10 +25,10 @@ export class AsyncManager {
     private apiManager: ManagerApi;
 
     constructor() {
-        const event: EventEmitter = new EventEmitter;
+        const processEvent: EventEmitter = new EventEmitter;
 
-        this.registerEvent(event);
-        this.apiManager = new ManagerApi(event.emit.bind(event));
+        this.registerEvent(processEvent);
+        this.apiManager = new ManagerApi(processEvent.emit.bind(processEvent));
     }
 
     public then(callback: Function) {
