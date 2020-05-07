@@ -36,7 +36,7 @@ export const doneFunctionGenerator = function(processEmitter: Function, type: st
         function callBroker(type: string, data: any) {
             if (disabled) return;
             disabled = true;
-            timer && clearTimeout(timer);
+            clearTimeout(timer);
             done.break = done.again = done.timeout = loop;
             processEmitter(type, data);
         }

@@ -1,21 +1,19 @@
 import { doneFunctionGenerator } from './doneFuncGen';
 
-function createCallWrap(fn: Function, max: number, doneGetter: Function) : Function {
+function createCallWrap(fn: Function, max: number, doneGetter: Function, timeout: number) : Function {
     let count = 0;
 
-    // 如果max为0或不存在则不需要每次对count校验
-    if (!max) return function callUntilFunction() {
-        fn(doneGetter(callUntilFunction), ++count);
-    }
-
-    // max大于0时
-    // 内部需要在每次执行之前检查一下是否达到上限
-    return function callUntilFunction() {
-        if (++count > max) {
+    return function callWrap() {
+        count++;
+        if (max > 0 && count > max) {
+            // max大于0时
+            // 内部需要在每次执行之前检查一下是否达到上限
             throw new Error('retry max');
         }
 
-        fn(doneGetter(callUntilFunction), count);
+        const ctrl = doneGetter(callWrap);
+        ctrl.timeout(timeout);
+        fn(ctrl, count);
     }
 }
 
@@ -25,11 +23,12 @@ function createCallWrap(fn: Function, max: number, doneGetter: Function) : Funct
  * @param callback until执行器
  * @param processEmitter 事件发生器
  * @param max 最大错误次数
+ * @param timeout 超时时间
  */
-export function until(callback: Function, processEmitter: Function, max: number) {
+export function until(callback: Function, processEmitter: Function, max: number, timeout: number) {
     const doneGetter = doneFunctionGenerator(processEmitter, 'until');
 
-    const callUntilFunction = createCallWrap(callback, max, doneGetter);
+    const callUntilFunction = createCallWrap(callback, max, doneGetter, timeout);
 
     // 推入异步中，使后面的链式注册不影响主函数的执行
     setTimeout(call, 0);

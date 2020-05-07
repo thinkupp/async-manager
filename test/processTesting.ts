@@ -5,6 +5,65 @@ import { eventTests } from './event.test';
 
 const asyncManager = new AsyncManager();
 
+
+// 带参util
+function withParams() {
+    // timeout
+    const timeout = new AsyncManager({
+        timeout: 500
+    })
+
+    timeout.until(function(done: any) {
+        done.break('break');
+    })
+    .then(function() {
+        console.log('until timeout error: 不该执行这里');
+    })
+    .catch(function(err: any) {
+        if (err === 'break') {
+            console.log('until timeout：成功');
+        } else {
+            console.log('until timeout error: 错误的信息' + err);
+        }
+    })
+
+    // timeout 0 没有超时设定
+    const timeoutZero = new AsyncManager({
+        timeout: 0
+    });
+    let timeout0timer: any;
+    
+    timeoutZero.until(function() {
+        // nothing
+        timeout0timer = setTimeout(function() {
+            console.log('until timeout0：成功');
+        }, 100)
+    })
+    .then(function() {
+        clearTimeout(timeout0timer);
+        console.log('until timeout0 error: 不该执行这里');
+    })
+    .catch(function() {
+        clearTimeout(timeout0timer);
+        console.log('until timeout0 error: 不该执行这里');
+    })
+
+    // timeout 500
+    timeout.until(function() {
+        // nothing
+    })
+    .then(function() {
+        console.log('until timeout0 error: 不该执行这里');
+    })
+    .catch(function(err: any) {
+        if (err === 'timeout') {
+            console.log('until timeout500：成功');
+        } else {
+            console.log('until timeout500 error: 错误的信息' + err);
+        }
+    })
+}
+
 // until模块
 function tUntil() {
     // 用户传入的函数报错时
@@ -258,7 +317,8 @@ function logError(module: string, message: string) {
     console.error(`[${module}] - Error: ${message}`);
 }
 
-tUntil();
+// tUntil();
+withParams();
 // eventTests();
 
 // TODO catch之后可以再进入then

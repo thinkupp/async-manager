@@ -8,3 +8,7 @@ export {
     Listeners,
     EventEmitter
 } from './events'
+
+export interface AsyncManagerParams {
+    timeout?: number;
+}

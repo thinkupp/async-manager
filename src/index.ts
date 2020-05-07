@@ -18,17 +18,19 @@
 import { Queue, ManagerApi } from './module/index';
 import { Ø } from './utils/const'
 import { EventEmitter } from './libs/index';
+import { AsyncManagerParams } from '../types';
 
 export class AsyncManager {
     private status: string = 'normal';
     private queue: Queue = new Queue;
     private apiManager: ManagerApi;
 
-    constructor() {
+    constructor(params?: AsyncManagerParams) {
         const processEvent: EventEmitter = new EventEmitter;
+        const { timeout } = (params || {});
 
         this.registerEvent(processEvent);
-        this.apiManager = new ManagerApi(processEvent.emit.bind(processEvent));
+        this.apiManager = new ManagerApi(processEvent.emit.bind(processEvent), timeout);
     }
 
     public then(callback: Function) {
