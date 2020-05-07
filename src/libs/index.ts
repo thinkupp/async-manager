@@ -1,0 +1,3 @@
+export {
+    EventEmitter
+} from './EventEmitter';

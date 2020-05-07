@@ -1,6 +1,7 @@
 /** 整体流程测试 */
 
 import { AsyncManager } from '../src/index';
+import { eventTests } from './event.test';
 
 const asyncManager = new AsyncManager();
 
@@ -257,8 +258,8 @@ function logError(module: string, message: string) {
     console.error(`[${module}] - Error: ${message}`);
 }
 
-tUntil();
-
+// tUntil();
+eventTests();
 
 // TODO catch之后可以再进入then
 // then之后删除自身
