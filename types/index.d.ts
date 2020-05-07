@@ -3,3 +3,8 @@ export {
     AddParam,
     TickPart
 } from './queue'
+
+export {
+    Listeners,
+    EventEmitter
+} from './events'

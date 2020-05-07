@@ -17,6 +17,7 @@
 
 import { Queue, ManagerApi } from './module/index';
 import { Ø } from './utils/const'
+import { EventEmitter } from './libs/index';
 
 export class AsyncManager {
     private status: string = 'normal';
@@ -24,7 +25,10 @@ export class AsyncManager {
     private apiManager: ManagerApi;
 
     constructor() {
-        this.apiManager = new ManagerApi(this ,this.queue);
+        const event: EventEmitter = new EventEmitter;
+
+        this.registerEvent(event);
+        this.apiManager = new ManagerApi(event.emit.bind(event));
     }
 
     public then(callback: Function) {
@@ -64,5 +68,15 @@ export class AsyncManager {
         isMainFunction && (this.status === 'normal') && queue.callMainFunction();
 
         return this;
+    }
+
+    private registerEvent(event: EventEmitter) {
+        const queue = this.queue;
+        event.on('success', (data: any) => {
+            queue.callCallback('then', data);
+        });
+        event.on('error', (err: any) => {
+            queue.callCallback('catch', err);
+        })
     }
 }

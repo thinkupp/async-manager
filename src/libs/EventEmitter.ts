@@ -1,6 +1,4 @@
-interface Listeners {
-    [key: string]: Function[];
-}
+import { Listeners } from "../../types";
 
 export class EventEmitter {
     private listeners: Listeners = {};

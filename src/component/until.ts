@@ -1,4 +1,3 @@
-import { Queue } from "../../types";
 import { doneFunctionGenerator } from './doneFuncGen';
 
 function createCallWrap(fn: Function, max: number, doneGetter: Function) : Function {
@@ -24,11 +23,12 @@ function createCallWrap(fn: Function, max: number, doneGetter: Function) : Funct
 /**
  * 执行一个函数，成功或失败到上限之前将重复执行
  * @param callback until执行器
- * @param queue 执行链
+ * @param emitter 事件发生器
  * @param max 最大错误次数
  */
-export function until(callback: Function, queue: Queue, max: number) {
-    const doneGetter = doneFunctionGenerator(queue, 'until');
+export function until(callback: Function, emitter: Function, max: number) {
+    const doneGetter = doneFunctionGenerator(emitter, 'until');
+
     const callUntilFunction = createCallWrap(callback, max, doneGetter);
 
     // 推入异步中，使后面的链式注册不影响主函数的执行
@@ -38,7 +38,7 @@ export function until(callback: Function, queue: Queue, max: number) {
         try {
             callUntilFunction();
         } catch (err) {
-            queue.callCallback('catch', err);
+            emitter('error', err);
         }
     }
 }

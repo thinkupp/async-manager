@@ -1,19 +1,16 @@
-import { Queue } from '../../types';
 import { until } from '../component/until';
 import { Ø } from '../utils/const'
 
 export class ManagerApi {
-    private context: any;
-    private queue: Queue;
+    private emitter: Function;
 
-    constructor(context: any, queue: Queue) {
-        this.context = context;
-        this.queue = queue;
+    constructor(emitter: Function) {
+        this.emitter = emitter;
     }
 
     public until(untilFunction: Function, max?: number) {
         max = Number(max) || 0;
-        until.apply(Ø, [untilFunction, this.queue, max]);
-        return this.context;
+        until.apply(Ø, [untilFunction, this.emitter, max]);
+        // return this.context;
     }
 }

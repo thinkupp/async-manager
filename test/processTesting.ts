@@ -258,8 +258,8 @@ function logError(module: string, message: string) {
     console.error(`[${module}] - Error: ${message}`);
 }
 
-// tUntil();
-eventTests();
+tUntil();
+// eventTests();
 
 // TODO catch之后可以再进入then
 // then之后删除自身
