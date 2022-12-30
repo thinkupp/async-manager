@@ -30,7 +30,7 @@
     "karma-mocha": "^2.0.1",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-typescript": "^5.0.2",
-    "mocha": "^7.1.2",
+    "mocha": "^10.2.0",
     "ts-node": "^8.9.1",
     "typescript": "^3.8.3"
   },
